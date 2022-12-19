@@ -264,6 +264,12 @@ git = 'https://github.com/example/baz.git'
 
 [patch.'https://github.com/example/baz']
 baz = { git = 'https://github.com/example/patched-baz.git', branch = 'my-branch' }
+
+[dependencies.spam]
+spam = '/path/to/spam'
+
+[patch.'file:///path/to/spam']
+spam = { path = '/new/path/to/spam' }
 ```
 
 > **Note**: The `[patch]` table can also be specified as a [configuration
@@ -276,7 +282,10 @@ The `[patch]` table is made of dependency-like sub-tables. Each key after
 `[patch]` is a URL of the source that is being patched, or the name of a
 registry. The name `crates-io` may be used to override the default registry
 [crates.io]. The first `[patch]` in the example above demonstrates overriding
-[crates.io], and the second `[patch]` demonstrates overriding a git source.
+[crates.io], the second `[patch]` demonstrates overriding a git source, and 
+the third `[patch]` demonstrates overriding a local path source.  Note that 
+for path dependencies, the URL must use the full path to the crate, even
+if the dependency was specified with a relative path.
 
 Each entry in these tables is a normal dependency specification, the same as
 found in the `[dependencies]` section of the manifest. The dependencies listed
